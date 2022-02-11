@@ -3,7 +3,6 @@ import os
 import requests
 
 coordinates = [37.620070, 55.753630]
-delta = 0.0001
 
 zoom = 16
 
@@ -11,6 +10,9 @@ t = 0
 types = ['map', 'sat', 'sat,skl']
 
 size = (600, 450)
+
+delta_x = size[0] * zoom * 0.00000055
+delta_y = size[1] * zoom * 0.0000025
 
 def main():
     global zoom, t
@@ -36,16 +38,16 @@ def main():
                     zoom = max(zoom, 0)
                     rerender(screen)
                 elif event.key == 1073741903:
-                    coordinates[0] += delta
+                    coordinates[0] += delta_y
                     rerender(screen)
                 elif event.key == 1073741904:
-                    coordinates[0] -= delta
+                    coordinates[0] -= delta_y
                     rerender(screen)
                 elif event.key == 1073741906:
-                    coordinates[1] += delta
+                    coordinates[1] += delta_x
                     rerender(screen)
                 elif event.key == 1073741905:
-                    coordinates[1] -= delta
+                    coordinates[1] -= delta_x
                     rerender(screen)
                 # PRESS W FOR CHANGE TYPE
                 elif event.key == 119:
