@@ -7,10 +7,13 @@ delta = 0.0001
 
 zoom = 16
 
+t = 0
+types = ['map', 'sat', 'sat,skl']
+
 size = (600, 450)
 
 def main():
-    global zoom
+    global zoom, t
     pygame.init()
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
@@ -44,6 +47,10 @@ def main():
                 elif event.key == 1073741905:
                     coordinates[1] -= delta
                     rerender(screen)
+                # PRESS W FOR CHANGE TYPE
+                elif event.key == 119:
+                    t += 1
+                    rerender(screen) 
 
 
 def rerender(screen):
@@ -52,7 +59,7 @@ def rerender(screen):
     dc = {
         "ll": str(coordinates[0]) + "," + str(coordinates[1]),
         "z": str(zoom),
-        "l": "map"
+        "l": types[t % 3]
     }
     response = requests.get(map_api_server, params=dc)
     with open('map_tmp.png', 'wb') as f:
