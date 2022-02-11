@@ -2,7 +2,8 @@ import pygame
 import os
 import requests
 
-coordinates = (37.620070, 55.753630)
+coordinates = [37.620070, 55.753630]
+delta = 0.0001
 
 zoom = 16
 
@@ -22,6 +23,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYDOWN:
+                #print(event.key)
                 if event.key == 1073741899:
                     zoom += 1
                     zoom = min(zoom, 17)
@@ -29,6 +31,18 @@ def main():
                 elif event.key == 1073741902:
                     zoom -= 1
                     zoom = max(zoom, 0)
+                    rerender(screen)
+                elif event.key == 1073741903:
+                    coordinates[0] += delta
+                    rerender(screen)
+                elif event.key == 1073741904:
+                    coordinates[0] -= delta
+                    rerender(screen)
+                elif event.key == 1073741906:
+                    coordinates[1] += delta
+                    rerender(screen)
+                elif event.key == 1073741905:
+                    coordinates[1] -= delta
                     rerender(screen)
 
 
